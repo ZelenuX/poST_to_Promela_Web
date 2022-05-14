@@ -1,25 +1,14 @@
 import logo from "../logo.svg";
 import React, {useEffect, useState} from "react";
+import {sendRequest} from "./util/sendRequest";
+import {PromelaProgramDto} from "./util/types";
 
 export const TranslationPage = () => {
-    const [ test, setTest ] = useState<string>();
-    const [ error, setError ] = useState<string>();
+    const [test, setTest] = useState<string>();
     useEffect(() => {
-        const fetchTest = async () => {
-            try {
-                const text = await (await fetch(`http://localhost:8080/test?p=hello`, {
-                    method: 'GET',
-                    headers: {
-                        accept: 'application/json',
-                    }
-                })).text();
-                setTest(text);
-            }
-            catch (e) {
-                setError((e as object).toString());
-            }
-        }
-        fetchTest();
+        sendRequest<PromelaProgramDto>('http://localhost:8080/translate', {p: "name"}, "dvd").then(value => {
+            setTest(value.program);
+        });
     }, []);
 
     return (
@@ -38,7 +27,6 @@ export const TranslationPage = () => {
                     Learn React
                 </a>
                 <h1>Response: {test ?? "-"}.</h1>
-                <h1>Error: {error ?? "-"}.</h1>
             </header>
         </div>
     );
