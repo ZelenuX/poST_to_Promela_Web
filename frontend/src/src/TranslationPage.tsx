@@ -24,23 +24,30 @@ export const TranslationPage = () => {
 
     return (
         <S.RootPageContainer>
-            <S.Column>
+            <S.Column gap={10}>
                 <EnhancedTextArea
                     className='code-input'
                     tabSize={2}
                     onTextChange={setPostCode}
                 />
-                <S.Options>
-
-                </S.Options>
+                <S.Options />
+                <S.Row stretchingAlong>
+                    <S.Column>
+                        <S.Options />
+                        <S.Options />
+                        <S.Options />
+                    </S.Column>
+                    <S.Column>
+                        <S.Options />
+                        <S.Options />
+                    </S.Column>
+                </S.Row>
             </S.Column>
-            <S.Column>
-                <T.TextArea
-                    ref={translatorOutput}
-                />
-                <S.Options>
+            <S.Column gap={10}>
+                <T.TextArea ref={translatorOutput} />
+                <S.Row>
 
-                </S.Options>
+                </S.Row>
             </S.Column>
         </S.RootPageContainer>
     );

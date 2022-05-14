@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import styled, {css} from 'styled-components';
 
 const RootPageContainer = styled.div`
   display: flex;
@@ -11,21 +10,41 @@ const RootPageContainer = styled.div`
   > * { flex-grow: 1; }
 `;
 
-const Column = styled.div`
+type LinearContainerProps = {stretchingAlong?: boolean, gap?: number};
+const LinearContainer = styled.div`${(props: LinearContainerProps) => css`
   display: flex;
+  align-items: stretch;
+  gap: ${props.gap ?? 0}px;
+  
+  ${props.stretchingAlong && css`
+    > * { flex-grow: 1; }
+  `}
+`}`;
+
+const Column = styled(LinearContainer)`
   flex-direction: column;
-  gap: 10px;
+
+  background: green;
+`;
+
+const Row = styled(LinearContainer)`
+  flex-direction: row;
+  
+  background: blue;
 `;
 
 const Options = styled.div`
   display: flex;
-  background: blue;
-  width: 400px;
-  height: 100px;
+  background: black;
+  min-width: 100px;
+  min-height: 50px;
+  //align-self: center;
+  margin: 10px;
 `;
 
 export const Styled = {
     RootPageContainer,
     Column,
+    Row,
     Options,
 }
