@@ -1,7 +1,9 @@
-import logo from "../logo.svg";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {sendRequest} from "./util/sendRequest";
 import {PromelaProgramDto} from "./util/types";
+import {Styled as S} from "./TranslationPage.styled";
+import {EnhancedTextArea } from "./components/EnchancedTextArea";
+import {Styled as T} from "./components/TextArea.styled";
 
 export const TranslationPage = () => {
     const [test, setTest] = useState<string>();
@@ -11,23 +13,35 @@ export const TranslationPage = () => {
         });
     }, []);
 
+    const [ postCode, setPostCode ] = useState<string>("");
+    const translatorOutput = useRef<HTMLTextAreaElement>(null);
+    useEffect(() => {
+        translatorOutput.current && (translatorOutput.current.readOnly = true);
+    }, []);
+    useEffect(() => {
+        translatorOutput.current && (translatorOutput.current.value = postCode);
+    }, [postCode]);
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-                <h1>Response: {test ?? "-"}.</h1>
-            </header>
-        </div>
+        <S.RootPageContainer>
+            <S.Column>
+                <EnhancedTextArea
+                    className='code-input'
+                    tabSize={2}
+                    onTextChange={setPostCode}
+                />
+                <S.Options>
+
+                </S.Options>
+            </S.Column>
+            <S.Column>
+                <T.TextArea
+                    ref={translatorOutput}
+                />
+                <S.Options>
+
+                </S.Options>
+            </S.Column>
+        </S.RootPageContainer>
     );
 }

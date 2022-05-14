@@ -4,7 +4,9 @@ import {TranslationPage} from "./src/TranslationPage";
 
 function App() {
     return (
-        <TranslationPage/>
+        <div className={"App"}>
+            <TranslationPage/>
+        </div>
     );
 }
 
