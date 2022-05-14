@@ -1,0 +1,12 @@
+.idea
+
+backend/.mvn
+backend/target
+backend/mvnw
+backend/mvnw.cmd
+backend/HELP.md
+backend/backend.iml
+
+frontend/node_modules
+frontend/coverage
+frontend/build
